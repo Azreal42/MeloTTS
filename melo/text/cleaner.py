@@ -7,9 +7,9 @@ def load_japanese():
   return japanese
 
 def get_module_from_language(language):
-  if language == "JP"
+  if language == "JP":
     return load_japanese()
-  else 
+  else:
     language_module_map = {
           "ZH": chinese, 
           "EN": english, 
