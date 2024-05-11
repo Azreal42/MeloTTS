@@ -1,20 +1,36 @@
-from . import chinese, japanese, english, chinese_mix, korean, french, spanish
+from . import chinese, english, chinese_mix, korean, french, spanish
 from . import cleaned_text_to_sequence
 import copy
 
-language_module_map = {"ZH": chinese, "JP": japanese, "EN": english, 'ZH_MIX_EN': chinese_mix, 'KR': korean,
-                    'FR': french, 'SP': spanish, 'ES': spanish}
+def load_japanese():
+  from . import japanese
+  return japanese
+
+def get_module_from_language(language):
+  if language == "JP"
+    return load_japanese()
+  else 
+    language_module_map = {
+          "ZH": chinese, 
+          "EN": english, 
+          'ZH_MIX_EN': chinese_mix, 
+          'KR': korean, 
+          'FR': french, 
+          'SP': spanish, 
+          'ES': spanish
+      }
+    return language_module_map[language]
 
 
 def clean_text(text, language):
-    language_module = language_module_map[language]
+    language_module = get_module_from_language(language)
     norm_text = language_module.text_normalize(text)
     phones, tones, word2ph = language_module.g2p(norm_text)
     return norm_text, phones, tones, word2ph
 
 
 def clean_text_bert(text, language, device=None):
-    language_module = language_module_map[language]
+    language_module = get_module_from_language(language)
     norm_text = language_module.text_normalize(text)
     phones, tones, word2ph = language_module.g2p(norm_text)
     
